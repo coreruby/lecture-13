@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Keyword arguments and Parallel assignment</title>
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link href="css/reveal.css" rel="stylesheet" />
+    <link href="css/simple.css" rel="stylesheet" />
+    <link href="css/googlecode.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section class="center" data-background="#000">
+  <h2 class="white">
+    Introspection
+  </h2>
+</section>
+<section class="center" data-background="https://m1.behance.net/rendition/modules/65216951/disp/3a5948b5e73dff1e4b791d9cf806710e.jpg">
+  <p class="fragment white">
+    I'm back!
+  </p>
+</section>
+<section class="center" data-background="https://m1.behance.net/rendition/modules/65216951/disp/3a5948b5e73dff1e4b791d9cf806710e.jpg">
+  <p class="white">
+    Huge <3 for Stanislav and Akseniya
+  </p>
+</section>
+<section class="center" data-background="https://m1.behance.net/rendition/modules/65216951/disp/3a5948b5e73dff1e4b791d9cf806710e.jpg">
+  <h2 class="white">
+    Questions
+  </h2>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">PI = 3.14
+
+module X
+  PI = 23
+end
+
+module X::Y
+  p PI
+end </code></pre>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">PI = 3.14
+
+module X
+  PI = 23
+end
+
+module X:Y
+  p PI
+end </code></pre>
+</section>
+<section class="center">
+  <img class="inline" src="img/troll.png" />
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">(2..Float::INFINITY).first(100).select(&:prime?) </code></pre>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">(2..Float::INFINITY).lazy.map { |number| number ** 2 }.select(&:odd?).to_a </code></pre>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">(2..Float::INFINITY).lazy.map { |number| number ** 2 }.select(&:odd?).first(1000) </code></pre>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">def order(drink, size:, syrup: 'hazelnut')
+  # ...
+end </code></pre>
+</section>
+<section class="center" data-background="#F00">
+  <h2 class="white">
+    Introspection
+  </h2>
+</section>
+<section class="center" data-background="#0F0">
+  <h2 class="white">
+    Instance Variables API
+  </h2>
+</section>
+<section>
+  <h2>
+    Object#instance_variable_defined?
+  </h2>
+  <p>
+    Returns true if the given instance variable is defined in obj
+  </p>
+</section>
+<section>
+  <h2>
+    Object#instance_variable_defined?
+  </h2>
+  <p>
+    String arguments are converted to symbols
+  </p>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">class Foo
+  def initialize(a, b)
+    @a, @b = a, b
+  end
+end </code></pre>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">foo = Foo.new('answer', 42)
+
+foo.instance_variable_defined? :@a  #=> true
+foo.instance_variable_defined? '@b' #=> true
+foo.instance_variable_defined? '@c' #=> false </code></pre>
+</section>
+<section>
+  <h2>
+    Object#instance_variable_get
+  </h2>
+  <p>
+    Returns the value of the given instance variable, or nil if the instance variable is not set
+  </p>
+</section>
+<section>
+  <h2>
+    Object#instance_variable_get
+  </h2>
+  <p>
+    The @ part of the variable name should be included for regular instance variables
+  </p>
+</section>
+<section>
+  <h2>
+    Object#instance_variable_get
+  </h2>
+  <p>
+    Throws a NameError exception if the supplied symbol is not valid as an instance variable name
+  </p>
+</section>
+<section>
+  <h2>
+    Object#instance_variable_get
+  </h2>
+  <p>
+    String arguments are converted to symbols
+  </p>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">class Foo
+  def initialize(a, b)
+    @a, @b = a, b
+  end
+end </code></pre>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">foo = Foo.new('answer', 42)
+
+foo.instance_variable_get :@a  #=> 'answer'
+foo.instance_variable_get '@b' #=> 42
+foo.instance_variable_get '@c' #=> nil </code></pre>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">foo.instance_variable_get? 'a' #=> NameError: `a' is not allowed as an instance variable name` </code></pre>
+</section>
+<section>
+  <h2>
+    Object#instance_variable_set
+  </h2>
+  <p>
+    Sets the instance variable names by symbol to object
+  </p>
+</section>
+<section>
+  <h2>
+    Object#instance_variable_set
+  </h2>
+  <p>
+    Thereby frustrating the efforts of the class’s author to attempt to provide proper encapsulation
+  </p>
+</section>
+<section class="center">
+  <img class="inline" src="img/troll.png" />
+</section>
+<section>
+  <h2>
+    Object#instance_variable_set
+  </h2>
+  <p>
+    The variable did not have to exist prior to this call
+  </p>
+</section>
+<section>
+  <h2>
+    Object#instance_variable_set
+  </h2>
+  <p>
+    If the instance variable name is passed as a string, that string is converted to a symbol
+  </p>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">class Foo
+  def initialize(a, b)
+    @a, @b = a, b
+  end
+end </code></pre>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">foo = Foo.new('answer', 42)
+
+foo.instance_variable_get :@a  #=> 'answer'
+foo.instance_variable_get '@b' #=> 42 </code></pre>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">foo = Foo.new('answer', 42)
+
+foo.instance_variable_set @a, 'aaa'   #=> 'aaa'
+foo.instance_variable_set '@b', 'bbb' #=> 'bbb'
+foo.instance_variable_set '@c', 'ccc' #=> 'ccc'
+
+foo.instance_variables                #=> [:a, :b, :c] </code></pre>
+</section>
+<section>
+  <h2>
+    Object#instance_variables
+  </h2>
+  <p>
+    Returns an array of instance variable names for the receiver
+  </p>
+</section>
+<section>
+  <h2>
+    Object#instance_variables
+  </h2>
+  <p>
+    Note that simply defining an accessor does not create the corresponding instance variable
+  </p>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">class Bar
+  attr_reader :a, :b
+end
+
+Bar.new.instance_variables #=> [] </code></pre>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">bar = Bar.new
+
+bar.instance_variable_set @a, 'aaa'   #=> 'aaa'
+bar.instance_variable_set '@b', 'bbb' #=> 'bbb'
+
+bar.instance_variables                #=> [:a, :b] </code></pre>
+</section>
+      </div>
+    </div>
+    <script src="js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script type="text/javascript">
+      Reveal.initialize({
+        width:  '100%',
+        height: '100%',
+        margin: 0.05,
+        controls: false,
+        progress: false,
+        history: true,
+        center: false,
+        rollingLinks: true,
+        transition: 'none',
+        backgroundTransition: 'none',
+        dependencies: [
+          {
+            src: 'js/highlight.js',
+            async: true,
+            callback: function() {
+              hljs.configure({ languages: ['ruby'] });
+              hljs.initHighlightingOnLoad();
+            }
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

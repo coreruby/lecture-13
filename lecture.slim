@@ -1,0 +1,207 @@
+section.center data-background="#000"
+  h2.white Introspection
+
+section.center data-background="https://m1.behance.net/rendition/modules/65216951/disp/3a5948b5e73dff1e4b791d9cf806710e.jpg"
+  p.fragment.white I'm back!
+
+section.center data-background="https://m1.behance.net/rendition/modules/65216951/disp/3a5948b5e73dff1e4b791d9cf806710e.jpg"
+  p.white  Huge <3 for Stanislav and Akseniya
+
+section.center data-background="https://m1.behance.net/rendition/modules/65216951/disp/3a5948b5e73dff1e4b791d9cf806710e.jpg"
+  h2.white Questions
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      PI = 3.14
+
+      module X
+        PI = 23
+      end
+
+      module X::Y
+        p PI
+      end
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      PI = 3.14
+
+      module X
+        PI = 23
+      end
+
+      module X:Y
+        p PI
+      end
+
+section.center
+  img.inline src="img/troll.png"
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      (2..Float::INFINITY).first(100).select(&:prime?)
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      (2..Float::INFINITY).lazy.map { |number| number ** 2 }.select(&:odd?).to_a
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      (2..Float::INFINITY).lazy.map { |number| number ** 2 }.select(&:odd?).first(1000)
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      def order(drink, size:, syrup: 'hazelnut')
+        # ...
+      end
+
+section.center data-background="#F00"
+  h2.white Introspection
+
+section.center data-background="#0F0"
+  h2.white Instance Variables API
+
+section
+  h2 Object#instance_variable_defined?
+  p Returns true if the given instance variable is defined in obj
+
+section
+  h2 Object#instance_variable_defined?
+  p String arguments are converted to symbols
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      class Foo
+        def initialize(a, b)
+          @a, @b = a, b
+        end
+      end
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      foo = Foo.new('answer', 42)
+
+      foo.instance_variable_defined? :@a  #=> true
+      foo.instance_variable_defined? '@b' #=> true
+      foo.instance_variable_defined? '@c' #=> false
+
+section
+  h2 Object#instance_variable_get
+  p Returns the value of the given instance variable, or nil if the instance variable is not set
+
+section
+  h2 Object#instance_variable_get
+  p The @ part of the variable name should be included for regular instance variables
+
+section
+  h2 Object#instance_variable_get
+  p Throws a NameError exception if the supplied symbol is not valid as an instance variable name
+
+section
+  h2 Object#instance_variable_get
+  p String arguments are converted to symbols
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      class Foo
+        def initialize(a, b)
+          @a, @b = a, b
+        end
+      end
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      foo = Foo.new('answer', 42)
+
+      foo.instance_variable_get :@a  #=> 'answer'
+      foo.instance_variable_get '@b' #=> 42
+      foo.instance_variable_get '@c' #=> nil
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      foo.instance_variable_get? 'a' #=> NameError: `a' is not allowed as an instance variable name`
+
+section
+  h2 Object#instance_variable_set
+  p Sets the instance variable names by symbol to object
+
+section
+  h2 Object#instance_variable_set
+  p Thereby frustrating the efforts of the class’s author to attempt to provide proper encapsulation
+
+section.center
+  img.inline src="img/troll.png"
+
+section
+  h2 Object#instance_variable_set
+  p The variable did not have to exist prior to this call
+
+section
+  h2 Object#instance_variable_set
+  p If the instance variable name is passed as a string, that string is converted to a symbol
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      class Foo
+        def initialize(a, b)
+          @a, @b = a, b
+        end
+      end
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      foo = Foo.new('answer', 42)
+
+      foo.instance_variable_get :@a  #=> 'answer'
+      foo.instance_variable_get '@b' #=> 42
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      foo = Foo.new('answer', 42)
+
+      foo.instance_variable_set @a, 'aaa'   #=> 'aaa'
+      foo.instance_variable_set '@b', 'bbb' #=> 'bbb'
+      foo.instance_variable_set '@c', 'ccc' #=> 'ccc'
+
+      foo.instance_variables                #=> [:a, :b, :c]
+
+section
+  h2 Object#instance_variables
+  p Returns an array of instance variable names for the receiver
+
+section
+  h2 Object#instance_variables
+  p Note that simply defining an accessor does not create the corresponding instance variable
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      class Bar
+        attr_reader :a, :b
+      end
+
+      Bar.new.instance_variables #=> []
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      bar = Bar.new
+
+      bar.instance_variable_set @a, 'aaa'   #=> 'aaa'
+      bar.instance_variable_set '@b', 'bbb' #=> 'bbb'
+
+      bar.instance_variables                #=> [:a, :b]
