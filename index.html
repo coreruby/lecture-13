@@ -247,6 +247,103 @@ bar.instance_variable_set '@b', 'bbb' #=> 'bbb'
 
 bar.instance_variables                #=> [:a, :b] </code></pre>
 </section>
+<section class="center" data-background="#0F0">
+  <h2 class="white">
+    Class Variables API
+  </h2>
+</section>
+<section>
+  <h2>
+    Module#class_variable_defined?
+  </h2>
+  <p>
+    Returns true if the given class variable is defined in obj
+  </p>
+</section>
+<section>
+  <h2>
+    Module#class_variable_defined?
+  </h2>
+  <p>
+    String arguments are converted to symbols
+  </p>
+</section>
+<section>
+  <h2>
+    Module#class_variable_get
+  </h2>
+  <p>
+    Returns the value of the given class variable (or throws a NameError exception)
+  </p>
+</section>
+<section>
+  <h2>
+    Module#class_variable_get
+  </h2>
+  <p>
+    The @@ part of the variable name should be included for regular class variables String arguments are converted to symbols
+  </p>
+</section>
+<section>
+  <h2>
+    Module#class_variable_set
+  </h2>
+  <p>
+    Sets the class variable names by symbol to object
+  </p>
+</section>
+<section>
+  <h2>
+    Module#class_variable_set
+  </h2>
+  <p>
+    If the class variable name is passed as a string, that string is converted to a symbol
+  </p>
+</section>
+<section>
+  <h2>
+    Module#class_variables
+  </h2>
+  <p>
+    Returns an array of the names of class variables in mod
+  </p>
+</section>
+<section>
+  <h2>
+    Module#class_variables
+  </h2>
+  <p>
+    This includes the names of class variables in any included modules, unless the inherit parameter is set to false
+  </p>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">class Fred
+  @@foo = 99
+
+  def foo
+    @@foo
+  end
+end </code></pre>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">Fred.class_variable_get(:@@foo)          #=> 99
+Fred.class_variable_set(:@@foo, 101)     #=> 101
+Fred.new.foo                             #=> 101 </code></pre>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">class One
+  @@var1 = 1
+end
+
+class Two < One
+  @@var2 = 2
+end </code></pre>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">One.class_variables                      #=> [:@@var1]
+Two.class_variables                      #=> [:@@var2, :@@var1]
+Two.class_variables(false)               #=> [:@@var2] </code></pre>
+</section>
       </div>
     </div>
     <script src="js/head.min.js"></script>

@@ -205,3 +205,74 @@ section.center
       bar.instance_variable_set '@b', 'bbb' #=> 'bbb'
 
       bar.instance_variables                #=> [:a, :b]
+
+section.center data-background="#0F0"
+  h2.white Class Variables API
+
+section
+  h2 Module#class_variable_defined?
+  p Returns true if the given class variable is defined in obj
+
+section
+  h2 Module#class_variable_defined?
+  p String arguments are converted to symbols
+
+section
+  h2 Module#class_variable_get
+  p Returns the value of the given class variable (or throws a NameError exception)
+
+section
+  h2 Module#class_variable_get
+  p The @@ part of the variable name should be included for regular class variables String arguments are converted to symbols
+
+section
+  h2 Module#class_variable_set
+  p Sets the class variable names by symbol to object
+
+section
+  h2 Module#class_variable_set
+  p If the class variable name is passed as a string, that string is converted to a symbol
+
+section
+  h2 Module#class_variables
+  p Returns an array of the names of class variables in mod
+
+section
+  h2 Module#class_variables
+  p This includes the names of class variables in any included modules, unless the inherit parameter is set to false
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      class Fred
+        @@foo = 99
+
+        def foo
+          @@foo
+        end
+      end
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      Fred.class_variable_get(:@@foo)          #=> 99
+      Fred.class_variable_set(:@@foo, 101)     #=> 101
+      Fred.new.foo                             #=> 101
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      class One
+        @@var1 = 1
+      end
+
+      class Two < One
+        @@var2 = 2
+      end
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      One.class_variables                      #=> [:@@var1]
+      Two.class_variables                      #=> [:@@var2, :@@var1]
+      Two.class_variables(false)               #=> [:@@var2]
