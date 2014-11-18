@@ -498,6 +498,108 @@ end
 
 Foo::UNDEFINED_CONST    #=> :UNDEFINED_CONST </code></pre>
 </section>
+<section class="center" data-background="#0F0">
+  <h2 class="white">
+    Methods API
+  </h2>
+</section>
+<section class="center">
+  <h2>
+    BasicObject#method_missing
+  </h2>
+  <p>
+    Invoked by Ruby when obj is sent a message it cannot handle
+  </p>
+</section>
+<section class="center">
+  <h2>
+    BasicObject#method_missing
+  </h2>
+  <p>
+    symbol is the symbol for the method called, and args are any arguments that were passed to it
+  </p>
+</section>
+<section class="center">
+  <h2>
+    BasicObject#method_missing
+  </h2>
+  <p>
+    By default, the interpreter raises an error when this method is called
+  </p>
+</section>
+<section class="center">
+  <h2>
+    BasicObject#method_missing
+  </h2>
+  <p>
+    However, it is possible to override the method to provide more dynamic behavior
+  </p>
+</section>
+<section class="center">
+  <h2>
+    BasicObject#method_missing
+  </h2>
+  <p>
+    If it is decided that a particular method should not be handled, then super should be called, so that ancestors can pick up the missing method
+  </p>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">class ArrayInquirer < Array
+  def method_missing(name, *args, &block)
+    if name.end_with? '?'
+      include? name.to_s.chomp '?'
+    else
+      super
+    end
+  end
+end </code></pre>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">munchies = ArrayInquirer.new %w(bacon ham eggs cheese)
+
+munchies.bacon? #=> true
+munchies.ham?   #=> true
+muchies.spam?   #=> false </code></pre>
+</section>
+<section class="center">
+  <h2>
+    Object#respond_to_missing?
+  </h2>
+  <p>
+    Let us play nicely with Object#respond_to?
+  </p>
+</section>
+<section class="center">
+  <h2>
+    Object#respond_to_missing?
+  </h2>
+  <p>
+    Hook method to return whether the obj can respond to id method or not
+  </p>
+</section>
+<section class="center">
+  <h2>
+    Object#respond_to_missing?
+  </h2>
+  <p>
+    When the method name parameter is given as a string, the string is converted to a symbol
+  </p>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">class ArrayInquirer < Array
+  def respond_to_missing?(name, include_private = false)
+    name.end_with? '?'
+  end
+end </code></pre>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">munchies = ArrayInquirer.new %w(bacon ham eggs cheese)
+
+muchies.ham?                #=> true
+muchies.spam?               #=> false
+
+munchies.respond_to? :spam? #=> false </code></pre>
+</section>
       </div>
     </div>
     <script src="js/head.min.js"></script>

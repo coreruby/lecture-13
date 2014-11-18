@@ -391,3 +391,79 @@ section.center
       end
 
       Foo::UNDEFINED_CONST    #=> :UNDEFINED_CONST
+
+section.center data-background="#0F0"
+  h2.white Methods API
+
+section.center
+  h2 BasicObject#method_missing
+  p Invoked by Ruby when obj is sent a message it cannot handle
+
+section.center
+  h2 BasicObject#method_missing
+  p symbol is the symbol for the method called, and args are any arguments that were passed to it
+
+section.center
+  h2 BasicObject#method_missing
+  p By default, the interpreter raises an error when this method is called
+
+section.center
+  h2 BasicObject#method_missing
+  p However, it is possible to override the method to provide more dynamic behavior
+
+section.center
+  h2 BasicObject#method_missing
+  p If it is decided that a particular method should not be handled, then super should be called, so that ancestors can pick up the missing method
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      class ArrayInquirer < Array
+        def method_missing(name, *args, &block)
+          if name.end_with? '?'
+            include? name.to_s.chomp '?'
+          else
+            super
+          end
+        end
+      end
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      munchies = ArrayInquirer.new %w(bacon ham eggs cheese)
+
+      munchies.bacon? #=> true
+      munchies.ham?   #=> true
+      muchies.spam?   #=> false
+
+section.center
+  h2 Object#respond_to_missing?
+  p Let us play nicely with Object#respond_to?
+
+section.center
+  h2 Object#respond_to_missing?
+  p Hook method to return whether the obj can respond to id method or not
+
+section.center
+  h2 Object#respond_to_missing?
+  p When the method name parameter is given as a string, the string is converted to a symbol
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      class ArrayInquirer < Array
+        def respond_to_missing?(name, include_private = false)
+          name.end_with? '?'
+        end
+      end
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      munchies = ArrayInquirer.new %w(bacon ham eggs cheese)
+
+      muchies.ham?                #=> true
+      muchies.spam?               #=> false
+
+      munchies.respond_to? :spam? #=> false
