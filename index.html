@@ -627,7 +627,7 @@ munchies.respond_to? :spam? #=> false </code></pre>
 </section>
 <section>
   <h2>
-    Object#define_method
+    Module#define_method
   </h2>
   <p>
     Defines an instance method in the receiver
@@ -635,7 +635,7 @@ munchies.respond_to? :spam? #=> false </code></pre>
 </section>
 <section>
   <h2>
-    Object#define_method
+    Module#define_method
   </h2>
   <p>
     The method parameter can be a Proc, a Method or an UnboundMethod object
@@ -643,7 +643,7 @@ munchies.respond_to? :spam? #=> false </code></pre>
 </section>
 <section>
   <h2>
-    Object#define_method
+    Module#define_method
   </h2>
   <p>
     If a block is specified, it is used as the method body
@@ -653,12 +653,59 @@ munchies.respond_to? :spam? #=> false </code></pre>
   <pre><code class="ruby" contenteditable="true">class SweetTalker
   define_method :say_somethind do |something, mood:, *unused|
     case mood
-    when :happy then "SOMETHING!"
-    when :angry then "YOU SUCK!"
-    else             "MEH!"
+    when :happy then something.capitalize + '!'
+    when :angry then 'YOU SUCK!'
+    else             'meh...'
     end
   end
 end </code></pre>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">person = SweetTalker.new
+
+person.say_something 'live is good', mood: :angry    #=> "YOU SUCK!"
+person.say_something 'live is good', mood: :happy    #=> "Live is good!"
+person.say_something 'live is good', mood: :whatever #=> "meh..." </code></pre>
+</section>
+<section>
+  <h2>
+    Module#method_added
+  </h2>
+  <p>
+    Invoked as a callback whenever an instance method is added to the receiver
+  </p>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">module Chatty
+  def self.method_added(method_name)
+    puts 'Adding ' + method_name.inspect
+  end
+  def self.some_class_method() end
+  def some_instance_method() end
+end
+
+#=> Adding :some_instance_method </code></pre>
+</section>
+<section>
+  <h2>
+    Module#method_removed
+  </h2>
+  <p>
+    Invoked as a callback whenever an instance method is removed from the receiver
+  </p>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">module Chatty
+  def self.method_removed(method_name)
+    puts "Removing " + method_name.inspect
+  end
+
+  def some_instance_method() end
+
+  remove_method :some_instance_method
+end
+
+#=> Removing :some_instance_method </code></pre>
 </section>
       </div>
     </div>
