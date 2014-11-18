@@ -5,7 +5,7 @@ section.center data-background="https://m1.behance.net/rendition/modules/6521695
   p.fragment.white I'm back!
 
 section.center data-background="https://m1.behance.net/rendition/modules/65216951/disp/3a5948b5e73dff1e4b791d9cf806710e.jpg"
-  p.white  Huge <3 for Stanislav and Akseniya
+  p.white <3 Stanislav and Akseniya
 
 section.center data-background="https://m1.behance.net/rendition/modules/65216951/disp/3a5948b5e73dff1e4b791d9cf806710e.jpg"
   h2.white Questions
@@ -410,23 +410,23 @@ section.center
 section.center data-background="#0F0"
   h2.white Methods API
 
-section.center
+section
   h2 BasicObject#method_missing
   p Invoked by Ruby when obj is sent a message it cannot handle
 
-section.center
+section
   h2 BasicObject#method_missing
   p symbol is the symbol for the method called, and args are any arguments that were passed to it
 
-section.center
+section
   h2 BasicObject#method_missing
   p By default, the interpreter raises an error when this method is called
 
-section.center
+section
   h2 BasicObject#method_missing
   p However, it is possible to override the method to provide more dynamic behavior
 
-section.center
+section
   h2 BasicObject#method_missing
   p If it is decided that a particular method should not be handled, then super should be called, so that ancestors can pick up the missing method
 
@@ -452,15 +452,15 @@ section.center
       munchies.ham?   #=> true
       muchies.spam?   #=> false
 
-section.center
+section
   h2 Object#respond_to_missing?
   p Let us play nicely with Object#respond_to?
 
-section.center
+section
   h2 Object#respond_to_missing?
   p Hook method to return whether the obj can respond to id method or not
 
-section.center
+section
   h2 Object#respond_to_missing?
   p When the method name parameter is given as a string, the string is converted to a symbol
 
@@ -473,7 +473,7 @@ section.center
         end
       end
 
-section.center
+section
   pre: code.ruby contenteditable="true"
     '
       munchies = ArrayInquirer.new %w(bacon ham eggs cheese)
@@ -482,3 +482,28 @@ section.center
       muchies.spam?               #=> false
 
       munchies.respond_to? :spam? #=> false
+
+section
+  h2 Object#define_method
+  p Defines an instance method in the receiver
+
+section
+  h2 Object#define_method
+  p The method parameter can be a Proc, a Method or an UnboundMethod object
+
+section
+  h2 Object#define_method
+  p If a block is specified, it is used as the method body
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      class SweetTalker
+        define_method :say_somethind do |something, mood:, *unused|
+          case mood
+          when :happy then "SOMETHING!"
+          when :angry then "YOU SUCK!"
+          else             "MEH!"
+          end
+        end
+      end

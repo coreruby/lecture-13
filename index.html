@@ -23,7 +23,7 @@
 </section>
 <section class="center" data-background="https://m1.behance.net/rendition/modules/65216951/disp/3a5948b5e73dff1e4b791d9cf806710e.jpg">
   <p class="white">
-    Huge <3 for Stanislav and Akseniya
+    <3 Stanislav and Akseniya
   </p>
 </section>
 <section class="center" data-background="https://m1.behance.net/rendition/modules/65216951/disp/3a5948b5e73dff1e4b791d9cf806710e.jpg">
@@ -69,6 +69,31 @@ end </code></pre>
   <pre><code class="ruby" contenteditable="true">def order(drink, size:, syrup: 'hazelnut')
   # ...
 end </code></pre>
+</section>
+<section class="center">
+  <p>
+    What is a scope gate?
+  </p>
+</section>
+<section class="center">
+  <p>
+    Which are the keywords that introduce scope gates?
+  </p>
+</section>
+<section class="center">
+  <p>
+    Where are instance variables stored?
+  </p>
+</section>
+<section class="center">
+  <p>
+    Where are methods stored?
+  </p>
+</section>
+<section class="center">
+  <p>
+    What is a module?
+  </p>
 </section>
 <section class="center" data-background="#F00">
   <h2 class="white">
@@ -503,7 +528,7 @@ Foo::UNDEFINED_CONST    #=> :UNDEFINED_CONST </code></pre>
     Methods API
   </h2>
 </section>
-<section class="center">
+<section>
   <h2>
     BasicObject#method_missing
   </h2>
@@ -511,7 +536,7 @@ Foo::UNDEFINED_CONST    #=> :UNDEFINED_CONST </code></pre>
     Invoked by Ruby when obj is sent a message it cannot handle
   </p>
 </section>
-<section class="center">
+<section>
   <h2>
     BasicObject#method_missing
   </h2>
@@ -519,7 +544,7 @@ Foo::UNDEFINED_CONST    #=> :UNDEFINED_CONST </code></pre>
     symbol is the symbol for the method called, and args are any arguments that were passed to it
   </p>
 </section>
-<section class="center">
+<section>
   <h2>
     BasicObject#method_missing
   </h2>
@@ -527,7 +552,7 @@ Foo::UNDEFINED_CONST    #=> :UNDEFINED_CONST </code></pre>
     By default, the interpreter raises an error when this method is called
   </p>
 </section>
-<section class="center">
+<section>
   <h2>
     BasicObject#method_missing
   </h2>
@@ -535,7 +560,7 @@ Foo::UNDEFINED_CONST    #=> :UNDEFINED_CONST </code></pre>
     However, it is possible to override the method to provide more dynamic behavior
   </p>
 </section>
-<section class="center">
+<section>
   <h2>
     BasicObject#method_missing
   </h2>
@@ -561,7 +586,7 @@ munchies.bacon? #=> true
 munchies.ham?   #=> true
 muchies.spam?   #=> false </code></pre>
 </section>
-<section class="center">
+<section>
   <h2>
     Object#respond_to_missing?
   </h2>
@@ -569,7 +594,7 @@ muchies.spam?   #=> false </code></pre>
     Let us play nicely with Object#respond_to?
   </p>
 </section>
-<section class="center">
+<section>
   <h2>
     Object#respond_to_missing?
   </h2>
@@ -577,7 +602,7 @@ muchies.spam?   #=> false </code></pre>
     Hook method to return whether the obj can respond to id method or not
   </p>
 </section>
-<section class="center">
+<section>
   <h2>
     Object#respond_to_missing?
   </h2>
@@ -592,13 +617,48 @@ muchies.spam?   #=> false </code></pre>
   end
 end </code></pre>
 </section>
-<section class="center">
+<section>
   <pre><code class="ruby" contenteditable="true">munchies = ArrayInquirer.new %w(bacon ham eggs cheese)
 
 muchies.ham?                #=> true
 muchies.spam?               #=> false
 
 munchies.respond_to? :spam? #=> false </code></pre>
+</section>
+<section>
+  <h2>
+    Object#define_method
+  </h2>
+  <p>
+    Defines an instance method in the receiver
+  </p>
+</section>
+<section>
+  <h2>
+    Object#define_method
+  </h2>
+  <p>
+    The method parameter can be a Proc, a Method or an UnboundMethod object
+  </p>
+</section>
+<section>
+  <h2>
+    Object#define_method
+  </h2>
+  <p>
+    If a block is specified, it is used as the method body
+  </p>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">class SweetTalker
+  define_method :say_somethind do |something, mood:, *unused|
+    case mood
+    when :happy then "SOMETHING!"
+    when :angry then "YOU SUCK!"
+    else             "MEH!"
+    end
+  end
+end </code></pre>
 </section>
       </div>
     </div>
