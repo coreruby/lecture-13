@@ -467,6 +467,37 @@ Math::HIGH_SCHOOL_PI - Math::PI              #=> 0.00126448926734968 </code></pr
   <pre><code class="ruby" contenteditable="true">IO.constants.include?(:SYNC)        #=> true
 IO.constants(false).include?(:SYNC) #=> false </code></pre>
 </section>
+<section>
+  <h2>
+    Module#const_missing
+  </h2>
+  <p>
+    Invoked when a reference is made to an undefined constant in mod
+  </p>
+</section>
+<section>
+  <h2>
+    Module#const_missing
+  </h2>
+  <p>
+    It is passed a symbol for the undefined constant
+  </p>
+</section>
+<section>
+  <h2>
+    Module#const_missing
+  </h2>
+  <p>
+    Returns a value to be used for that constant.
+  </p>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">def Foo.const_missing(name)
+  name
+end
+
+Foo::UNDEFINED_CONST    #=> :UNDEFINED_CONST </code></pre>
+</section>
       </div>
     </div>
     <script src="js/head.min.js"></script>

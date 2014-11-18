@@ -370,3 +370,24 @@ section.center
     '
       IO.constants.include?(:SYNC)        #=> true
       IO.constants(false).include?(:SYNC) #=> false
+
+section
+  h2 Module#const_missing
+  p Invoked when a reference is made to an undefined constant in mod
+
+section
+  h2 Module#const_missing
+  p It is passed a symbol for the undefined constant
+
+section
+  h2 Module#const_missing
+  p Returns a value to be used for that constant.
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      def Foo.const_missing(name)
+        name
+      end
+
+      Foo::UNDEFINED_CONST    #=> :UNDEFINED_CONST
