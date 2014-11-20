@@ -651,7 +651,7 @@ munchies.respond_to? :spam? #=> false </code></pre>
 </section>
 <section class="center">
   <pre><code class="ruby" contenteditable="true">class SweetTalker
-  define_method :say_somethind do |something, mood:, *unused|
+  define_method :say_something do |something, mood:|
     case mood
     when :happy then something.capitalize + '!'
     when :angry then 'YOU SUCK!'
@@ -663,9 +663,9 @@ end </code></pre>
 <section class="center">
   <pre><code class="ruby" contenteditable="true">person = SweetTalker.new
 
-person.say_something 'live is good', mood: :angry    #=> "YOU SUCK!"
-person.say_something 'live is good', mood: :happy    #=> "Live is good!"
-person.say_something 'live is good', mood: :whatever #=> "meh..." </code></pre>
+person.say_something 'life is good', mood: :angry    #=> "YOU SUCK!"
+person.say_something 'life is good', mood: :happy    #=> "Life is good!"
+person.say_something 'life is good', mood: :whatever #=> "meh..." </code></pre>
 </section>
 <section>
   <h2>
